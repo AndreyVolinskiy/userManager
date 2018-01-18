@@ -1,11 +1,13 @@
 package controller;
 
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_COLOR_BURNPeer;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import secure.AppSecurity;
 import start.AppManager;
@@ -31,7 +33,13 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 //        btnOk.setOnAction(event -> printPassword());
-        btnOk.setOnAction(event -> login());
+        btnOk.setOnAction(event -> {
+            try {
+                login();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private void printPassword() {
@@ -62,7 +70,7 @@ public class LoginController implements Initializable {
 
     }
 
-    public void login() {
+    public void login() throws InterruptedException {
         if (AppSecurity.check(txtPass.getText())) {
             try {
                 AppManager.getStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("/view/course.fxml"))));
@@ -70,7 +78,9 @@ public class LoginController implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            txtMessage.setText("Wrong password");
+            txtMessage.setUnderline(true);
+            txtMessage.setText("Wrong password!");
+            txtPass.setText("");
         }
 
 

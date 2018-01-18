@@ -20,7 +20,7 @@ import java.util.StringJoiner;
 public class CourseController implements Initializable {
 
     @FXML
-    private ComboBox <String> comboBox;
+    private ComboBox<String> comboBox;
     @FXML
     private TextField txtName;
     @FXML
@@ -36,10 +36,6 @@ public class CourseController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         list.addAll("Java Start", "Java OOP", "Java Professional");
         comboBox.setItems(list);
-
-
-
-
 
 
         new Thread(new Runnable() {
@@ -60,13 +56,12 @@ public class CourseController implements Initializable {
     }
 
     private void fileToMail() throws IOException {
-        SimpleMailMessage message = new SimpleMailMessage();
-        JavaMailSenderImpl mailSender = EmailConfig.mailSender();
 
         StringJoiner joiner = new StringJoiner("\n");
         String filePath = "src\\main\\resources\\Users.txt";
         final String email = "mamashka236@gmail.com";
         File file = new File(filePath);
+
         try (final BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String text;
             while ((text = reader.readLine()) != null) {
@@ -75,16 +70,16 @@ public class CourseController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        message.setText(joiner.toString());
-        message.setTo(email);
-        mailSender.send(message);
-
+        new CourseController().sendMessage(joiner.toString(), email);
     }
 
     private void saveToFile() {
 
         String filePath = "src\\main\\resources\\Users.txt";
         File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
 
         try (final BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
             String item = comboBox.getSelectionModel().getSelectedItem();
@@ -93,12 +88,22 @@ public class CourseController implements Initializable {
             writer.write("Email: " + String.valueOf(txtEmail.getText()) + "\n");
             writer.write("About: " + String.valueOf(txtAbout.getText()) + "\n");
             writer.write("\n");
-            comboBox.setVisibleRowCount(0);
+//            comboBox.setSelectedItem(null);
+            comboBox.setValue(null);
             txtName.setText("");
             txtEmail.setText("");
             txtAbout.setText("");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendMessage (String text, String to){
+
+        SimpleMailMessage simpleMessage = new SimpleMailMessage();
+        simpleMessage.setTo(to);
+        simpleMessage.setText(text);
+        JavaMailSenderImpl mailSender = EmailConfig.mailSender();
+        mailSender.send(simpleMessage);
     }
 }

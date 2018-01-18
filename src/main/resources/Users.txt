@@ -1,33 +1,5 @@
-Course: ComboBoxPopupControl$FakeFocusTextField@6f118fb9[styleClass=text-input text-field]
-Name: Alex
-Email: mail.ru
-About: sjfgskjrfgr
-
-Course: ComboBoxPopupControl$FakeFocusTextField@26b62e44[styleClass=text-input text-field]
-Name: fhjfhj
-Email: fsr
-About: vn,k,
-Course: Java Start
-Name: Alex
-Email: sfbsfb
-About: kjfv
 Course: Java OOP
-Name: ghj
-Email: ghj
-About: fyjfjyf
-
-Course: Java Professional
-Name: fgh
-Email: fgj
-About: fgn
-
-Course: Java Start
-Name: dfv
-Email: dfb
-About: ascadc
-
-Course: Java OOP
-Name: ykj
-Email: rd
-About: gsae
+Name: Andrey
+Email: qwerty@gmail.com
+About: I`m a Java programmer !!!!!!!!111111
 
